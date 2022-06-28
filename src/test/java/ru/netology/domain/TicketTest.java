@@ -97,10 +97,11 @@ public class TicketTest {
         manager.add(ticket4);
 
         Ticket[] actual = manager.searchBy("Z");
-        Ticket[] expected = {};
+        Ticket[] expected = {ticket1, ticket2};
 
         assertArrayEquals(expected, actual);
     }
+
 
     @Test
     void deleteById() {
@@ -141,6 +142,16 @@ public class TicketTest {
     }
 
     @Test
+    void getTicket2() {
+        Ticket data = new Ticket();
+        assertEquals(0, data.getId());
+        assertEquals(0, data.getPrice());
+        assertEquals(null, data.getFrom());
+        assertEquals(null, data.getTo());
+        assertEquals(0, data.getDuration());
+    }
+
+    @Test
     void ShouldSearchAndCompareTicket() {
         TicketManager manager = new TicketManager();
         manager.add(ticket1);
@@ -148,8 +159,8 @@ public class TicketTest {
         manager.add(ticket3);
         manager.add(ticket4);
 
-        Ticket[] actual = manager.findTickets(2199, 2800);
-        Ticket[] expected = {ticket2, ticket3, ticket4};
+        Ticket[] actual = manager.findTickets("SVO", "KZN");
+        Ticket[] expected = {ticket1};
 
         assertArrayEquals(expected, actual);
     }
@@ -163,8 +174,8 @@ public class TicketTest {
         manager.add(ticket4);
         manager.add(ticket5);
 
-        Ticket[] actual = manager.findTickets(500, 1500);
-        Ticket[] expected = {ticket1, ticket5};
+        Ticket[] actual = manager.findTickets("SVO", "");
+        Ticket[] expected = {ticket1};
 
         assertArrayEquals(expected, actual);
     }
@@ -179,9 +190,8 @@ public class TicketTest {
         manager.add(ticket5);
 
 
-        Ticket[] actual = manager.findTickets(2500, 4000);
-        ;
-        Ticket[] expected = {ticket4};
+        Ticket[] actual = manager.findTickets("V", "Z");
+        Ticket[] expected = {ticket1, ticket2};
 
         assertArrayEquals(expected, actual);
     }
@@ -196,9 +206,8 @@ public class TicketTest {
         manager.add(ticket5);
 
 
-        Ticket[] actual = manager.findTickets(3000, 4000);
-        ;
-        Ticket[] expected = {};
+        Ticket[] actual = manager.findTickets("", "");
+        Ticket[] expected = {ticket1, ticket5, ticket2, ticket3, ticket4};
 
         assertArrayEquals(expected, actual);
     }
@@ -211,26 +220,8 @@ public class TicketTest {
         manager.add(ticket5);
 
 
-        Ticket[] actual = manager.findTickets(2400, 2500);
-        ;
-        Ticket[] expected = {ticket3};
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    void ShouldSearchAndCompareTicket5() {
-        TicketManager manager = new TicketManager();
-        manager.add(ticket1);
-        manager.add(ticket4);
-        manager.add(ticket3);
-        manager.add(ticket2);
-        manager.add(ticket5);
-
-
-        Ticket[] actual = manager.findTickets(20, 2500);
-        ;
-        Ticket[] expected = {ticket1, ticket5, ticket2, ticket3};
+        Ticket[] actual = manager.findTickets("", "L");
+        Ticket[] expected = {ticket5, ticket3, ticket4};
 
         assertArrayEquals(expected, actual);
     }

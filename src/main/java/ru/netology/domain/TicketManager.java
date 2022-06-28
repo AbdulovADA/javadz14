@@ -3,7 +3,7 @@ package ru.netology.domain;
 import java.util.Arrays;
 
 public class TicketManager {
-    Repository repository = new Repository();
+    private Repository repository = new Repository();
 
     public void add(Ticket ticket) {
         repository.save(ticket);
@@ -20,7 +20,7 @@ public class TicketManager {
     public Ticket[] searchBy(String text) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repository.findAll()) {
-            if (matches(ticket, text, "")) {
+            if (matches(ticket, text, "") || matches(ticket, "", text)) {
                 int length = result.length + 1;
                 Ticket[] tmp = new Ticket[length];
                 for (int i = 0; i < result.length; i++) {
@@ -34,19 +34,19 @@ public class TicketManager {
         return result;
     }
 
-    public Ticket[] findTickets(int minPrice, int maxPrice) {
+    public Ticket[] findTickets(String from, String to) {
         Ticket[] ans = new Ticket[0];
         for (Ticket ticket : repository.findAll()) {
-            if (ticket.getPrice() >= minPrice && ticket.getPrice() <= maxPrice) {
+            if (matches(ticket, from, to)) {
                 Ticket[] tmp = new Ticket[ans.length + 1];
                 for (int i = 0; i < ans.length; i++) {
                     tmp[i] = ans[i];
                 }
                 tmp[tmp.length - 1] = ticket;
                 ans = tmp;
-                Arrays.sort(ans);
             }
         }
+        Arrays.sort(ans);
         return ans;
     }
 

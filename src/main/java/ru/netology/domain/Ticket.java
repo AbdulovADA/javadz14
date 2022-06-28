@@ -20,9 +20,10 @@ public class Ticket implements Comparable<Ticket> {
         this.from = from;
         this.to = to;
         this.duration = duration;
-
     }
 
+    public Ticket() {
+    }
 
     public int getId() {
         return id;
